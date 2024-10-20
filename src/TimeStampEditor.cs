@@ -5,9 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-using System.Reflection;
-
-
 public class FileDateTimeUpdaterForm : Form
 {
     private DateTimePicker datePicker;
