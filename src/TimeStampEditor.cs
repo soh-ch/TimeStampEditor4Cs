@@ -5,6 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
+using System.Reflection;
+[assembly: AssemblyVersion("1.0.0")]
+[assembly: AssemblyDescription("このアセンブリにはバージョン情報が設定されています。")]
+[assembly: AssemblyProduct("Assembly Version Information")]
+[assembly: AssemblyCopyright("Copyright (c) 2024 たばし")]
+
+
 public class FileDateTimeUpdaterForm : Form
 {
     private DateTimePicker datePicker;
