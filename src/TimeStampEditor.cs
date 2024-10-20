@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-using System.Refrection;
+using System.Reflection;
 
 
 public class FileDateTimeUpdaterForm : Form
@@ -21,11 +21,11 @@ public class FileDateTimeUpdaterForm : Form
     private Label lblDragDropShape;
     
     // ユーザフォーム定義
-    public FileDatteTimeUpdaterForm()
+    public FileDateTimeUpdaterForm()
     {
         // [1] メインフォーム定義
-        this.Text = "TimeStampEditor"
-        this.Size = new Sysetm.Drawing.Size(230,380)
+        this.Text = "TimeStampEditor";
+        this.Size = new System.Drawing.Size(230,380);
         this.MinimizeBox = false;
         this.MaximizeBox = false;
         this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -35,26 +35,60 @@ public class FileDateTimeUpdaterForm : Form
         lblDateTimePicker = new Label();
         lblDateTimePicker.Text = "①日時を指定してください。";
         lblDateTimePicker.Size = new System.Drawing.Size(220,15);
-        lblDateTimePicker.Location = new System.Drawing.Point(10,10,);
-        tthis.Controls.Add(lblDateTimePicker);
+        lblDateTimePicker.Location = new System.Drawing.Point(10,10);
+        this.Controls.Add(lblDateTimePicker);
 
         // [3] 日付ピッカー
+        datePicker = new DateTimePicker();
+        datePicker.Format = DateTimePickerFormat.Short;
+        datePicker.Location = new System.Drawing.Point(10,30);
+        this.Controls.Add(datePicker);
         
         // [4] 時刻ピッカー
+        timePicker = new DateTimePicker();
+        timePicker.Format = DateTimePickerFormat.Short;
+        timePicker.Location = new System.Drawing.Point(10,50);
+        this.Controls.Add(timePicker);
 
         // [5] ラベル ②対象を選択してください(複数可)
-
+        lblChkList = new Label();
+        lblChkList.Text = "②対象を選択してください(複数可)";
+        lblChkList.Size = new System.Drawing.Size(220,15);
+        lblChkList.Location = new System.Drawing.Point(10,85);
+        this.Controls.Add(lblChkList);
 
         // [6] チェックボックス 作成日時
+        chkCreation = new CheckBox();
+        chkCreation.Text = "作成日時";
+        chkCreation.Location = new System.Drawing.Point(10,100);
+        this.Controls.Add(chkCreation);
 
         // [7] チェックボックス 更新日時
+        chkModificaion = new CheckBox();
+        chkModificaion.Text = "作成日時";
+        chkModificaion.Location = new System.Drawing.Point(10,120);
+        this.Controls.Add(chkModificaion);
 
         // [8] チェックボックス アクセス日時
+        chkAccess = new CheckBox();
+        chkAccess.Text = "作成日時";
+        chkAccess.Location = new System.Drawing.Point(10,140);
+        this.Controls.Add(chkAccess);
 
         // [9] ラベル ③ファイルをドラッグアンドドロップ(複数可)
+        lblDragDrop = new Label();
+        lblDragDrop.Text = "③ファイルをドラッグアンドドロップ(複数可)";
+        lblDragDrop.Size = new System.Drawing.Size(220,15);
+        lblDragDrop.Location = new System.Drawing.Point(10,170);
+        this.Controls.Add(lblDragDrop);
+
 
         // [10] ラベル ここにファイルをドラッグアンドドロップ
-
+        lblDragDropShape = new Label();
+        lblDragDropShape.Text = "ここにファイルをドラッグアンドドロップ";
+        lblDragDropShape.Size = new System.Drawing.Size(220,15);
+        lblDragDropShape.Location = new System.Drawing.Point(30,250);
+        this.Controls.Add(lblDragDropShape);
 
         // [11] ドロップ許容
         this.AllowDrop = true;
@@ -77,7 +111,7 @@ public class FileDateTimeUpdaterForm : Form
     // Main処理
     [STAThread]
     public static void Main(){
-        Application.EnableVisualStyles():
+        Application.EnableVisualStyles();
         Application.Run(new FileDateTimeUpdaterForm());
     }
     
