@@ -46,7 +46,7 @@ public class FileDateTimeUpdaterForm : Form
         
         // [4] 時刻ピッカー
         timePicker = new DateTimePicker();
-        timePicker.Format = DateTimePickerFormat.Short;
+        timePicker.Format = DateTimePickerFormat.Time;
         timePicker.Location = new System.Drawing.Point(10,50);
         this.Controls.Add(timePicker);
 
@@ -65,13 +65,13 @@ public class FileDateTimeUpdaterForm : Form
 
         // [7] チェックボックス 更新日時
         chkModificaion = new CheckBox();
-        chkModificaion.Text = "作成日時";
+        chkModificaion.Text = "更新日時";
         chkModificaion.Location = new System.Drawing.Point(10,120);
         this.Controls.Add(chkModificaion);
 
         // [8] チェックボックス アクセス日時
         chkAccess = new CheckBox();
-        chkAccess.Text = "作成日時";
+        chkAccess.Text = "アクセス日時";
         chkAccess.Location = new System.Drawing.Point(10,140);
         this.Controls.Add(chkAccess);
 
@@ -105,7 +105,45 @@ public class FileDateTimeUpdaterForm : Form
     // ドラッグアンドドロップしたときの処理
     private void DragDropLabel_DragDrop(object Sender, DragEventArgs e)
     {
+        try
+        {
+            // 日時組み立て
+            DateTime selectedDate = datePicker.Value.Date + timePicker.Value.TimeOfDay;
+            
+            // ドロップファイル組み立て
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 
+            // 繰り返し処理
+            foreach (string file in files)
+            {
+                // 作成日時変更
+                if(chkCreation.Checked)
+                {
+                    File.SetCreationTime(file, selectedDate);
+                }
+
+                // 更新日時変更
+                if(chkModificaion.Checked)
+                {
+                    File.SetLastWriteTime(file, selectedDate);
+                }
+
+                // アクセス日時変更
+                if(chkAccess.Checked)
+                {
+                    File.SetLastAccessTime(file, selectedDate);
+                }
+            }
+        }
+        catch(Exception)
+        {
+            this.BringToFront();
+            this.Activate();
+            MessageBox.Show("処理が異常終了しました。");
+        }
+        this.BringToFront();
+        this.Activate();
+        MessageBox.Show("処理が完了しました。");
     }
 
     // Main処理
